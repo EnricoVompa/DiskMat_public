@@ -1,0 +1,1 @@
+jooksuta matemaatika.py faili ja sisesta oma uniid ilma tähtedeta.
