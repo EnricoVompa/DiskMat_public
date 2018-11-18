@@ -7,4 +7,4 @@ Jooksuta järgmist faili...
 matemaatika.py
 ```
 
-Siis sistema terminali enda uniid numbriline osa.
+Siis sisesta terminali enda uniid numbriline osa.
