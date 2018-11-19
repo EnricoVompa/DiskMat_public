@@ -78,6 +78,9 @@ print(f"From removing  1-de (ühtede) 'piirkond' ({value_1}) and 'määramatusep
       "This is your 0-de (nullide) 'piirkond'.\n")
 
 print(f'Your function will look as follows: f(x1...x4) = Σ{value_1}₁ {value_2_1}_'.replace('{', '(').replace('}', ')'))
+print(value_1)
+print(value_2_1)
+print(value_3)
 values = []
 table = '|x1|x2|x3|x4|->|f|\n'
 for i in range(0, 16):
@@ -152,6 +155,7 @@ for elem in horisontal_karnaugh_line:
     poo = []
 horisontal_karnaugh_line = foo
 
+
 def checker(generic_list):
     all_answers = []
     for num, key in enumerate(dictionary):
@@ -160,12 +164,14 @@ def checker(generic_list):
             all_answers.append(result)
     return not any(all_answers)
 
+
 def _16_to_3(d2_list):
     correct_form = []
     for element in d2_list:
         appendable = qm.simplify(element, [16])
         correct_form.append(list(appendable)[0][1:])
     return correct_form
+
 
 def _3_to_16(d2_list):
     correct_form = []
@@ -186,6 +192,7 @@ def _3_to_16(d2_list):
             correct_form.append(eval("0b" + element))
         return set(correct_form)
 
+
 def remove_error(correct, wrong):
     for element in wrong:
         for char in element:
@@ -194,6 +201,9 @@ def remove_error(correct, wrong):
                 return remove_error(correct, wrong)
     return wrong
 
+
+check_MDNK = _3_to_16(list(MDNK.copy()))
+check_MKNK = _3_to_16(list(MKNK.copy()))
 
 for turn in range(2):
     if turn == 0:
@@ -209,23 +219,24 @@ for turn in range(2):
                     TaKNK.append(value)
 
     karnaugh_index = [[0, 1, 3, 2], [4, 5, 7, 6], [12, 13, 15, 14], [8, 9, 11, 10]]
+
     for i in range(4):
         for j in range(4):
             # 1x1
-            if horisontal_karnaugh_line[i][j] == index[turn]:
-                proxy = sorted([karnaugh_index[i][j]])
-                if turn == 1:
+            if turn == 1:
+                if karnaugh_index[i][j] in check_MDNK:
+                    proxy = sorted([karnaugh_index[i][j]])
                     TDNK.append(sorted([karnaugh_index[i][j]]))
-                elif turn == 0:
+            if turn == 0:
+                if karnaugh_index[i][j] in check_MKNK:
+                    proxy = sorted([karnaugh_index[i][j]])
                     TKNK.append(sorted([karnaugh_index[i][j]]))
 
-
-check_MDNK = _3_to_16(list(MDNK.copy()))
-check_MKNK = _3_to_16(list(MKNK.copy()))
-
 ###remove error
+
 TaDNK = remove_error(check_MDNK, TaDNK)
 TaKNK = remove_error(check_MKNK, TaKNK)
+
 
 TDNK = _16_to_3(TDNK)
 TKNK = _16_to_3(TKNK)
@@ -240,4 +251,7 @@ print()
 print("Taandatud KNK : ", TaKNK)
 print("Täielik KNK : ", TKNK)
 print("Minimaalne KNK : ", list(MKNK))
+print()
+print()
+print()
 print()
